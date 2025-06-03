@@ -15,7 +15,6 @@ def webhook():
     is_group = '@g.us' in chat_id
     is_status = 'status@broadcast'in chat_id
 
-
     if is_group or is_status:
         return jsonify({'status': 'success', 'message': 'Mensagem de grupo ou status ignorada.'}), 200
 

@@ -9,12 +9,14 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
 
+
 os.environ['GROQ_API_KEY'] = config('GROQ_API_KEY')
+
 
 class AIBot:
 
     def __init__(self):
-        self.__chat = ChatGroq(model='llama-3.3-70b-versatile')
+        self.__chat = ChatGroq(model='llama-3.1-70b-versatile')
         self.__retriever = self.__build_retriever()
 
     def __build_retriever(self):

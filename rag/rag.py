@@ -11,13 +11,13 @@ os.environ['HUGGINGFACE_API_KEY'] = config('HUGGINGFACE_API_KEY')
 
 
 if __name__ == '__main__':
-    file_path = '/app/rag/data/beehouse.pdf'
+    file_path = '/app/rag/data/django_master.pdf'
     loader = PyPDFLoader(file_path)
     docs = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=800,
-        chunk_overlap=100,
+        chunk_size=1000,
+        chunk_overlap=200,
     )
     chunks = text_splitter.split_documents(
         documents=docs,
