@@ -7,8 +7,6 @@ from langchain_chroma import Chroma
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_huggingface import HuggingFaceEmbeddings
 
-
-os.environ['GROQ_API_KEY'] = config('GROQ_API_KEY')
 os.environ['HUGGINGFACE_API_KEY'] = config('HUGGINGFACE_API_KEY')
 
 
@@ -18,8 +16,8 @@ if __name__ == '__main__':
     docs = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=200,
+        chunk_size=800,
+        chunk_overlap=100,
     )
     chunks = text_splitter.split_documents(
         documents=docs,

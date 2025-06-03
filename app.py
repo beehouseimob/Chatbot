@@ -1,6 +1,4 @@
 from flask import Flask, request, jsonify
-from time import sleep
-from random import randint
 
 from bot.ai_bot import AIBot
 from services.waha import Waha
@@ -17,18 +15,25 @@ def webhook():
     is_group = '@g.us' in chat_id
     is_status = 'status@broadcast'in chat_id
 
+
     if is_group or is_status:
-        return jsonify({'status': 'success', 'message': 'Mensagem de grupo/status ignorada.'}), 200
-    
+        return jsonify({'status': 'success', 'message': 'Mensagem de grupo ou status ignorada.'}), 200
+
     waha = Waha()
     ai_bot = AIBot()
 
     waha.start_typing(chat_id=chat_id)
-    response = ai_bot.invoke(question=received_message)
-    sleep(randint(1, 2))
+    history_messages = waha.get_history_messages(
+        chat_id=chat_id,
+        limit=10,
+    )
+    response_message = ai_bot.invoke(
+        history_messages=history_messages,
+        question=received_message,
+    )
     waha.send_message(
         chat_id=chat_id,
-        message=response,
+        message=response_message,
     )
     waha.stop_typing(chat_id=chat_id)
 
